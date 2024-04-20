@@ -1,7 +1,8 @@
-import { writeFile } from 'node:fs/promises'
+import { open } from 'node:fs/promises'
 
+const file = await open('text.txt', 'a')
 
-await writeFile('text.txt', 'Sido test', {
-    flag: 'a'
-})
+file.write('Lolll')
+
+file.close()
 
