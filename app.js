@@ -1,8 +1,9 @@
-import { open } from 'node:fs/promises'
+import { createServer } from 'node:http'
 
-const file = await open('text.txt', 'a')
 
-file.write('Lolll')
+const server = createServer((req, res) => {
+    res.write('Helloww')
+    res.end()
+})
 
-file.close()
-
+server.listen('8888')
