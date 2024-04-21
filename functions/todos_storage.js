@@ -48,3 +48,19 @@ export async function removeTodo(id) {
     }
     await writeFile(path, JSON.stringify(todos.filter(todo => todo.id !== id)))
 }
+
+/**
+ * 
+ * @param {{ title?: string, completed?: boolean }} data
+ * @returns {Promise<Todo>}
+ */
+export async function updateTodo(id, data) {
+    const todos = await findTodos()
+    const todo = todos.find(todo => todo.id === id)
+    if (todo === undefined) {
+        throw new NotFoundError
+    }
+    Object.assign(todo, data)
+    await writeFile(path, JSON.stringify(todos))
+    return todo
+}
