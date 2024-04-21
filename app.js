@@ -1,10 +1,10 @@
 import { createServer } from 'node:http'
-import { create, index } from './functions/api/todo.js'
+import { create, index, remove } from './functions/api/todo.js'
 
 createServer(async (req, res) => {
     res.setHeader('Content-Type', 'application/json')
     const url = new URL(req.url, `http://${req.headers.host}`)
-
+    console.log(url);
     const endpoint = `${req.method}:${url.pathname}`
     let results
 
@@ -17,6 +17,9 @@ createServer(async (req, res) => {
             results = await create(req, res)
             break;
 
+        case 'DELETE:/todos':
+            results = await remove(req, res, url)
+            break;
         default:
             res.writeHead(404);
     }

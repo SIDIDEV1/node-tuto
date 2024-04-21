@@ -32,3 +32,14 @@ export async function createTodo({ title, completed = false }) {
     await writeFile(path, JSON.stringify(todos))
     return todo
 }
+
+
+/**
+ * 
+ * @param {boolean} id
+ * @returns {Promise}
+ */
+export async function removeTodo(id) {
+    const todos = await findTodos()
+    await writeFile(path, JSON.stringify(todos.filter(todo => todo.id !== id)))
+}
